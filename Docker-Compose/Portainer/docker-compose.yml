@@ -12,6 +12,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+      - /docker/local-certs:/certs
+    command: --ssl --sslcert /certs/portainer-selfsigned.crt --sslkey /certs/portainer-selfsigned.key
 
 volumes:
   portainer_data:
