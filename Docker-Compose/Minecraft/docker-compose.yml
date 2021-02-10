@@ -1,0 +1,51 @@
+# Docker compose file for rr59/waterfall made by Bart Schijff
+# Version: 0.3 - 21-12-2020
+
+version: '2'
+services:
+    waterfall:
+        container_name: Waterfall
+        image: rr59/waterfall
+        ports:
+            - '25565:25577'
+        restart: unless-stopped
+        volumes:
+        - waterfall-server:/server
+        - waterfall-plugins:/plugins
+        stdin_open: true
+        tty: true
+        environment:
+            - MEMORY=512m
+
+    papermclobby:
+        image: phyremaster/papermc
+        container_name: PaperMC-Lobby
+        ports:
+            - 25566:25565
+        restart: unless-stopped
+        stdin_open: true
+        tty: true
+        volumes:
+        - papermc-lobby:/papermc
+        environment:
+            - MC_RAM=1G
+            - MC_VERSION=1.16.4
+    papermcsurvival:
+        image: phyremaster/papermc
+        container_name: PaperMC-Survival
+        ports:
+            - 25567:25565
+        restart: unless-stopped
+        stdin_open: true
+        tty: true
+        volumes:
+        - papermc-survival:/papermc
+        environment:
+            - MC_RAM=1G
+            - MC_VERSION=1.16.4
+        
+volumes:
+  waterfall-server:
+  waterfall-plugins:
+  papermc-lobby:
+  papermc-survival:
